@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bela Carregamentos</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <span class="subtitle">Calculadora de Carregamento</span>
+      <h1>Bela Carregamentos</h1>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="calc">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"></path>
+          <path d="M8 8.91V11"></path>
+          <path d="M12 8.91V11"></path>
+          <path d="M16 8.91V11"></path>
+          <path d="M8 15h0"></path>
+          <path d="M12 15h0"></path>
+          <path d="M16 15h0"></path>
+        </svg>
+        Calculadora
+      </button>
+      <button class="tab-btn" data-tab="stats">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+          <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+        </svg>
+        Estatísticas
+      </button>
+    </nav>
+
+    <main id="view-calc" class="view active">
+      <div class="card card-inputs">
+        <div class="input-group">
+          <label for="battery-percent">Recarga Pretendida (%)</label>
+          <input type="number" id="battery-percent" value="50" min="1" max="100">
+        </div>
+
+        <div class="input-group">
+          <label for="start-time">Hora de Início</label>
+          <input type="time" id="start-time" value="20:00">
+        </div>
+
+        <div class="input-group">
+          <label>Potência de Carregamento Fixa</label>
+          <div class="fixed-power-display">
+            3.68 kW <small>(Tomada Reforçada)</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-container card">
+        <div class="result-header">
+          <span class="total-label">Custo Total Estimado</span>
+          <span class="total-cost"><span id="total-price">0.00</span>€</span>
+        </div>
+
+        <div class="visual-distribution" id="distribution-bar">
+          <div class="dist-day" id="bar-day"></div>
+          <div class="dist-night" id="bar-night"></div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><span class="dot dot-day"></span> Dia (0.145€)</div>
+          <div class="legend-item"><span class="dot dot-night"></span> Noite (0.111€)</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-value" id="total-energy">0.0</span>
+            <span class="stat-label">kWh (c/ perdas)</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="charge-duration">0h 0m</span>
+            <span class="stat-label">Tempo de Carga</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="finish-time">00:00</span>
+            <span class="stat-label">Hora de Termo</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="cost-per-100">0.00€</span>
+            <span class="stat-label">Custo / 100km</span>
+          </div>
+        </div>
+
+        <button id="btn-save" class="btn-primary">Registar Carregamento</button>
+      </div>
+    </main>
+
+    <main id="view-stats" class="view">
+      <div class="card">
+        <h3>Resumo de Gastos</h3>
+        <div class="chart-container">
+          <canvas id="historyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="history-section card">
+        <h3>Histórico de Carregamentos</h3>
+        <div id="history-list" class="history-list">
+          <!-- Registos inseridos via JS -->
+        </div>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
