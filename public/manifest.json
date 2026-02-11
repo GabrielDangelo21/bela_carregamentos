@@ -1,0 +1,17 @@
+{
+    "name": "Bela Carregamentos",
+    "short_name": "Bela",
+    "description": "Calculadora premium de carregamento de veículos elétricos.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F1E9DE",
+    "theme_color": "#1C344C",
+    "icons": [
+        {
+            "src": "/logo.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
