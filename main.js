@@ -20,7 +20,10 @@ const elements = {
     btnSave: document.getElementById('btn-save'),
     historyList: document.getElementById('history-list'),
     tabBtns: document.querySelectorAll('.tab-btn'),
-    views: document.querySelectorAll('.view')
+    views: document.querySelectorAll('.view'),
+    btnExport: document.getElementById('btn-export'),
+    btnImport: document.getElementById('btn-import'),
+    fileImport: document.getElementById('file-import')
 };
 
 let historyChart = null;
@@ -228,10 +231,50 @@ function initChart() {
     }
 }
 
+// Backup Logic
+function exportBackup() {
+    const history = localStorage.getItem('charge_history') || '[]';
+    const blob = new Blob([history], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bela_backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function importBackup(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (!Array.isArray(data)) throw new Error('Formato inválido');
+
+            if (confirm('Deseja substituir o histórico atual pelo backup?')) {
+                localStorage.setItem('charge_history', JSON.stringify(data));
+                renderHistory();
+                initChart();
+                alert('Backup importado com sucesso!');
+            }
+        } catch (err) {
+            alert('Erro ao importar backup: Ficheiro inválido.');
+        }
+    };
+    reader.readAsText(file);
+}
+
 // Listeners
 elements.batteryPercent.addEventListener('input', calculate);
 elements.startTime.addEventListener('input', calculate);
 elements.btnSave.addEventListener('click', saveCharge);
+elements.btnExport.addEventListener('click', exportBackup);
+elements.btnImport.addEventListener('click', () => elements.fileImport.click());
+elements.fileImport.addEventListener('change', importBackup);
 
 // Init
 calculate();

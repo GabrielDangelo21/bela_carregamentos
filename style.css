@@ -285,10 +285,37 @@ input:focus {
 }
 
 /* Stats view */
+.stats-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.backup-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-icon {
+    background: rgba(28, 52, 76, 0.05);
+    border: none;
+    color: var(--color-primary);
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
 .chart-container {
     width: 100%;
     height: 200px;
-    margin-top: 15px;
 }
 
 .history-list {
