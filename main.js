@@ -277,4 +277,6 @@ elements.btnImport.addEventListener('click', () => elements.fileImport.click());
 elements.fileImport.addEventListener('change', importBackup);
 
 // Init
+const now = new Date();
+elements.startTime.value = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 calculate();
